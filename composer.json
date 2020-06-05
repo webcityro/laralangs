@@ -1,0 +1,25 @@
+{
+    "name": "webcityro/laralangs",
+    "description": "Adding multi languages capability to laravel models.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrei Valcu",
+            "email": "andreivalcu@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Webcityro\\Laralangs\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webcityro\\Laralangs\\LaralangsServiceProvider"
+            ]
+        }
+    }
+}
