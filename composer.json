@@ -12,7 +12,16 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Webcityro\\Laralangs\\": "src/"
+            "Webcityro\\Laralangs\\": "src/",
+            "Webcityro\\Laralangs\\Database\\": "database/"
+        },
+        "classmap": [
+            "database/seeds"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webcityro\\Laralangs\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -21,5 +30,8 @@
                 "Webcityro\\Laralangs\\LaralangsServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0@dev"
     }
 }
