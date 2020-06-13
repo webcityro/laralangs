@@ -11,6 +11,7 @@ class LaralangsServiceProvider extends ServiceProvider {
 			$this->registerPublishing();
 		}
 
+		$this->registerFacades();
 		$this->registerResources();
 	}
 
@@ -28,5 +29,11 @@ class LaralangsServiceProvider extends ServiceProvider {
 		$this->publishes([
 			__DIR__.'/../config/laralangs.php' => config_path('laralangs.php')
 		], 'laralangs-config');
+	}
+
+	protected function registerFacades() {
+		$this->app->singleton('Laralangs', function ($app) {
+			return new \Webcityro\Laralangs\Laralangs();
+		});
 	}
 }

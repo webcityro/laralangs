@@ -4,6 +4,7 @@ namespace Webcityro\Laralangs\Console\Creators;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Webcityro\Laralangs\Facades\Laralangs;
 use Closure;
 
 class MigrationCreator {
@@ -32,22 +33,14 @@ class MigrationCreator {
 	protected function populateStub($name, $stub, $table) {
 		$stub = str_replace('DummyClass', $this->getClassName($name), $stub);
 		$stub = str_replace('DummyTable', $table, $stub);
-		$stub = str_replace('DummyLanguageTable', $this->getLanguageTableName($table), $stub);
-		$stub = str_replace('DummyPivotColumn', $this->getPivotColumnName($table), $stub);
+		$stub = str_replace('DummyLanguageTable', Laralangs::getLanguageTableName($table), $stub);
+		$stub = str_replace('DummyPivotColumn', Laralangs::getPivotColumnName($table), $stub);
 
 		return $stub;
 	}
 
 	protected function getClassName($name) {
 		return Str::studly($name);
-	}
-
-	protected function getLanguageTableName($table) {
-		return $table.config('laralangs.languageTableSuffix', '_language');
-	}
-
-	protected function getPivotColumnName($table) {
-		return Str::camel(Str::singular($table)).config('laralangs.idSuffix', 'ID');
 	}
 
 	protected function getStub() {
