@@ -5,6 +5,7 @@ namespace Webcityro\Laralangs\Tests;
 use LanguagesSeeder;
 use Illuminate\Support\Facades\Artisan;
 use Webcityro\Laralangs\LaralangsServiceProvider;
+use Webcityro\Laralangs\Facades\Laralangs;
 
 class TestCase extends \Orchestra\Testbench\TestCase {
 
@@ -12,6 +13,7 @@ class TestCase extends \Orchestra\Testbench\TestCase {
 		parent::setUp();
 		Artisan::call('migrate');
 		Artisan::call('db:seed', ['--class' => 'LanguagesSeeder']);
+		Laralangs::setDefaultLanguage(1);
 	}
 
 	protected function getPackageProviders($app):array {

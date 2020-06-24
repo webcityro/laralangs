@@ -29,6 +29,10 @@ class LaralangsServiceProvider extends ServiceProvider {
 		$this->publishes([
 			__DIR__.'/../config/laralangs.php' => config_path('laralangs.php')
 		], 'laralangs-config');
+
+		$this->publishes([
+			__DIR__.'/Console/Creators/stubs/LaralangsServiceProvider.stub' => app_path('Providers/LaralangsServiceProvider.php')
+		], 'laralangs-provider');
 	}
 
 	protected function registerFacades() {

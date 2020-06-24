@@ -8,13 +8,13 @@ class LanguagesSeeder extends Seeder {
       Language::insert([
          [
             'name' => 'English',
-            'code' => 'en',
+            'locale' => 'en',
             'image' => 'EN_us.gif',
             'sortOrder' => 1,
             'active' => true,
          ], [
             'name' => 'Romana',
-            'code' => 'ro',
+            'locale' => 'ro',
             'image' => 'RO_ro.gif',
             'sortOrder' => 2,
             'active' => true,

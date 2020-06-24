@@ -10,7 +10,7 @@ class CreateLanguagesTable extends Migration {
       Schema::create('languages', function (Blueprint $table) {
          $table->increments('id');
          $table->string('name');
-         $table->string('code');
+         $table->string('locale');
          $table->string('image');
          $table->integer('sortOrder')->unsigned();
          $table->boolean('active')->default(1);

@@ -1,6 +1,9 @@
 <?php
 
 return [
-    'languageTableSuffix' => '_language',
-    'idSuffix' => 'ID'
+    'languageTableSuffix' => '_languages',
+    'idSuffix' => 'ID',
+
+    /* id or locale */
+    'primaryKey' => 'id'
 ];

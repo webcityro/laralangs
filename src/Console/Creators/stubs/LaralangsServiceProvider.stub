@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Webcityro\Laralangs\Facades\Laralangs;
+
+class LaralangsServiceProvider extends ServiceProvider {
+
+	public function boot() {
+		Laralangs::setDefaultLanguage(1);
+	}
+
+	public function register() {
+	}
+}

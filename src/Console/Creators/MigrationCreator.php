@@ -35,6 +35,7 @@ class MigrationCreator {
 		$stub = str_replace('DummyTable', $table, $stub);
 		$stub = str_replace('DummyLanguageTable', Laralangs::getLanguageTableName($table), $stub);
 		$stub = str_replace('DummyPivotColumn', Laralangs::getPivotColumnName($table), $stub);
+		$stub = str_replace('DummyLanguagePivotColumn', Laralangs::getLanguagePivotColumnName(), $stub);
 
 		return $stub;
 	}
