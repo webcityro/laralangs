@@ -1,6 +1,6 @@
 <?php
 
-namespace Webcityro\Laralangs\Tests\Models;
+namespace Webcityro\Laralangs\Models;
 
 use Webcityro\Laralangs\Models\Model;
 

@@ -37,4 +37,8 @@ class Laralangs {
 	public function setDefaultLanguage($key) {
 		$this->languagePrimaryKey = $key;
 	}
+
+	public function getRoutesPrefix() {
+		return config('laralangs.routePrefix', 'laralangs');
+	}
 }

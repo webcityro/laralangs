@@ -5,5 +5,7 @@ return [
     'idSuffix' => 'ID',
 
     /* id or locale */
-    'primaryKey' => 'id'
+    'primaryKey' => 'id',
+
+    'routePrefix' => 'laralangs'
 ];

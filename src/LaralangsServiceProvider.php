@@ -3,6 +3,8 @@
 namespace Webcityro\Laralangs;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Webcityro\Laralangs\Facades\Laralangs;
 
 class LaralangsServiceProvider extends ServiceProvider {
 
@@ -13,6 +15,7 @@ class LaralangsServiceProvider extends ServiceProvider {
 
 		$this->registerFacades();
 		$this->registerResources();
+		$this->registerRoutes();
 	}
 
 	public function register() {
@@ -23,6 +26,7 @@ class LaralangsServiceProvider extends ServiceProvider {
 
 	protected function registerResources() {
 		$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+		$this->loadViewsFrom(__DIR__.'/../resources/views', 'laralangs');
 	}
 
 	protected function registerPublishing() {
@@ -39,5 +43,21 @@ class LaralangsServiceProvider extends ServiceProvider {
 		$this->app->singleton('Laralangs', function ($app) {
 			return new \Webcityro\Laralangs\Laralangs();
 		});
+	}
+
+	protected function registerRoutes() {
+		Route::group($this->routeConfiguration(), function () {
+			$this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+		});
+	}
+
+	protected function routeConfiguration()
+	{
+		return [
+			'prefix' => Laralangs::getRoutesPrefix(),
+			'namespace' => 'Webcityro\Laralangs\Http\Controllers',
+			'as' => 'laralangs.',
+			'middleware' => 'web'
+		];
 	}
 }

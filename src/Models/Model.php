@@ -94,15 +94,26 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 		$this->languagesQuery()->delete();
 	}
 
+	public function t($locale) {
+		$languageID = (int) is_numeric($locale) ? $locale : Language::where('locale', $locale)->first()->id;
+		return $this->getLanguages()->where(Laralangs::getLanguagePivotColumnName(), $languageID)->first();
+	}
+
+	public function toJson($options = 0) {
+		return collect([
+			'fields' => $this->attributesForJson(),
+			'translations' => $this->getLanguagesArray()
+		])->toJson();
+	}
+
+	protected function attributesForJson() {
+		return $this->attributes;
+	}
+
 	public function __get($key)	{
 		if (isset($this->attributes[$key])) {
 			return parent::__get($key);
 		}
 		return $this->getLanguages()->where(Laralangs::getLanguagePivotColumnName(), Language::default()->id)->first()->{$key};
-	}
-
-	public function t($locale) {
-		$languageID = (int) is_numeric($locale) ? $locale : Language::where('locale', $locale)->first()->id;
-		return $this->getLanguages()->where(Laralangs::getLanguagePivotColumnName(), $languageID)->first();
 	}
 }
