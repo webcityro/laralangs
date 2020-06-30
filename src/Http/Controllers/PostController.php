@@ -33,6 +33,13 @@ class PostController extends Controller {
 	}
 
 	public function update(Post $post, PostRequest $request) {
+		$request->validate([
+			'active' => 'required',
+			'sortOrder' => 'required',
+		], [
+			'title' => 'required',
+			'body' => 'required',
+		]);
 		$post->updateWithLanguages($request->fields, $request->translations);
 
 		return response()->json($post, Response::HTTP_ACCEPTED);
