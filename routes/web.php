@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/post', 'PostController');
+Route::resource('/post', 'PostsController');

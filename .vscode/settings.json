@@ -1,6 +1,13 @@
 {
     "cSpell.words": [
         "Laralangs",
+        "Unprocessable",
         "Webcityro"
-    ]
+    ],
+    "editor.insertSpaces": false,
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.options.useTabs": true,
+    "prettier.singleQuote": true,
+    "prettier.tabWidth": 4,
+    "prettier.useTabs": true
 }

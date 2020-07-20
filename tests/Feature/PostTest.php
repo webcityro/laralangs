@@ -9,10 +9,11 @@ use Webcityro\Laralangs\Tests\TestCase;
 use Webcityro\Laralangs\Models\Language;
 use Webcityro\Laralangs\Facades\Laralangs;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Webcityro\Laralangs\Tests\Traits\ResponseTrait;
 
 class PostTest extends TestCase {
 
-	use RefreshDatabase;
+	use RefreshDatabase, ResponseTrait;
 
 	protected function setUp():void {
 		parent::setUp();
@@ -34,16 +35,24 @@ class PostTest extends TestCase {
 
 	/** @test */
 	public function the_sortOrder_is_required() {
-		$response = $this->post(route('laralangs.post.store'), $this->validData(''));
+		$response = $this->postJson(route('laralangs.post.store'), $this->validData(''));
 
-		$response->assertSessionHasErrors('fields.sortOrder');
+		$this->assertResponseUnprocessableWithJson($response, [
+			'fields.sortOrder' => [__('validation.required', [
+				'attribute' => 'sort order'
+			])]
+		]);
 	}
 
 	/** @test */
 	public function the_active_is_required() {
-		$response = $this->post(route('laralangs.post.store'), $this->validData(1, ''));
+		$response = $this->postJson(route('laralangs.post.store'), $this->validData(1, ''));
 
-		$response->assertSessionHasErrors('fields.active');
+		$this->assertResponseUnprocessableWithJson($response, [
+			'fields.active' => [__('validation.required', [
+				'attribute' => 'status'
+			])]
+		]);
 	}
 
 	/** @test */
@@ -51,9 +60,13 @@ class PostTest extends TestCase {
 		$postData = $this->validData();
 		$postData['translations'][1]['title'] = '';
 
-		$response = $this->post(route('laralangs.post.store'), $postData);
+		$response = $this->postJson(route('laralangs.post.store'), $postData);
 
-		$response->assertSessionHasErrors('translations.1.title');
+		$this->assertResponseUnprocessableWithJson($response, [
+			'translations.1.title' => [__('validation.required', [
+				'attribute' => 'title'
+			])]
+		]);
 	}
 
 	/** @test */
@@ -61,20 +74,24 @@ class PostTest extends TestCase {
 		$postData = $this->validData();
 		$postData['translations'][2]['body'] = '';
 
-		$response = $this->post(route('laralangs.post.store'), $postData);
+		$response = $this->postJson(route('laralangs.post.store'), $postData);
 
-		$response->assertSessionHasErrors('translations.2.body');
+		$this->assertResponseUnprocessableWithJson($response, [
+			'translations.2.body' => [__('validation.required', [
+				'attribute' => 'body'
+			])]
+		]);
 	}
 
 	/** @test */
 	public function a_post_can_be_updated() {
 		$this->withoutExceptionHandling();
 
-		$this->post(route('laralangs.post.store'), $this->validData());
+		$this->postJson(route('laralangs.post.store'), $this->validData());
 
 		$post = Post::first();
 
-		$response = $this->patch(route('laralangs.post.update', ['post' => $post->id]), $this->validData(2, false, ' 2'));
+		$response = $this->patchJson(route('laralangs.post.update', ['post' => $post->id]), $this->validData(2, false, ' 2'));
 
 		$response->assertStatus(202);
 
@@ -88,11 +105,11 @@ class PostTest extends TestCase {
 
 	/** @test */
 	public function a_post_can_be_Deleted() {
-		$this->post(route('laralangs.post.store'), $this->validData());
+		$this->postJson(route('laralangs.post.store'), $this->validData());
 
 		$post = Post::first();
 
-		$response = $this->delete(route('laralangs.post.destroy', ['post' => $post->id]));
+		$response = $this->deleteJson(route('laralangs.post.destroy', ['post' => $post->id]));
 
 		$response->assertStatus(202);
 

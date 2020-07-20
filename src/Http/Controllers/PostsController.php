@@ -8,14 +8,16 @@ use Webcityro\Laralangs\Models\Post;
 use Symfony\Component\HttpFoundation\Response;
 use Webcityro\Laralangs\Http\Requests\PostRequest;
 
-class PostController extends Controller {
+class PostsController extends Controller {
 
 	public function index() {
-		return view('laralangs::post');
+		return view('laralangs::post.index')->with([
+			'posts' => Post::paginate(15)
+		]);
 	}
 
 	public function create() {
-		//
+		return view('laralangs::post.create');
 	}
 
 	public function store(PostRequest $request) {
@@ -24,22 +26,15 @@ class PostController extends Controller {
 		return response()->json($post, Response::HTTP_CREATED);
 	}
 
-	public function show($id) {
-		//
+	public function show(Post $post) {
+		return view('laralangs::post.show')->with(compact('post'));
 	}
 
-	public function edit($id) {
-		//
+	public function edit(Post $post) {
+		return view('laralangs::post.edit')->with(compact('post'));
 	}
 
 	public function update(Post $post, PostRequest $request) {
-		$request->validate([
-			'active' => 'required',
-			'sortOrder' => 'required',
-		], [
-			'title' => 'required',
-			'body' => 'required',
-		]);
 		$post->updateWithLanguages($request->fields, $request->translations);
 
 		return response()->json($post, Response::HTTP_ACCEPTED);

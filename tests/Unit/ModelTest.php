@@ -21,11 +21,13 @@ class ModelTest extends TestCase {
 
 	/** @test */
 	public function creating_an_multi_language_db_entry_and_fetching_it_beck() {
-		$post = $this->newPost();
+		$newPost = $this->newPost();
+		$this->assertInstanceOf(Post::class, $newPost);
 
-		$this->assertInstanceOf(Post::class, $post);
+		$post = Post::first();
+
 		$this->assertEquals(1, $post->sortOrder);
-		$this->assertTrue($post->active);
+		$this->assertEquals('1', $post->active);
 		$this->assertEquals('Test title', $post->title);
 		$this->assertEquals('Test body', $post->body);
 		$this->assertEquals('Test titlu', $post->t(2)->title);
