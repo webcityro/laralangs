@@ -7,5 +7,10 @@ return [
     /* id or locale */
     'primaryKey' => 'id',
 
-    'routePrefix' => 'laralangs'
+    'routePrefix' => 'laralangs',
+
+    'images' => [
+        'max_size' => 1000,
+        'directory' => 'images/language_flags'
+    ]
 ];

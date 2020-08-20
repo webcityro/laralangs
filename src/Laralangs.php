@@ -41,4 +41,12 @@ class Laralangs {
 	public function getRoutesPrefix() {
 		return config('laralangs.routePrefix', 'laralangs');
 	}
+
+	public function getImagesDirectory() {
+		return config('laralangs.images.directory', 'images/language_flags');
+	}
+
+	public function getImageMaxSize() {
+		return config('laralangs.images.max_size', 1000);
+	}
 }
